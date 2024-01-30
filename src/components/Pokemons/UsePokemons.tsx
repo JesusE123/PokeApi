@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import { PokemonList } from "../../models/Pokemons";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 import { Pokemons } from "../../models/Pokemons";
 
 const UsePokemons = () => {
-  const [data, setData] = useState<PokemonList[]>();
-  
+  const [data, setData] = useState<Pokemons[]>();
+  const state = useSelector((state:RootState) => state.pokemon.queryName)
   const getPokemons = async () => {
     try {
       const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=20&offset=0");
@@ -37,8 +38,13 @@ const UsePokemons = () => {
     }
   };
 
+
+  const filteredPokemons = data?.filter((pokemon) => 
+    pokemon.name.toLowerCase().includes(state.toLowerCase())
+  )
+
   return {
-    result: data ? data : [],
+    result: filteredPokemons ? filteredPokemons : [],
     getPokemons,
   };
 };

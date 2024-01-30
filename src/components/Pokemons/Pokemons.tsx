@@ -5,7 +5,7 @@ import UsePokemons from "./UsePokemons"
 
 const Pokemons = () => {
     const {result, getPokemons} = UsePokemons()
-    console.log(result)
+  
     useEffect (() => {
       getPokemons()
     }, [])

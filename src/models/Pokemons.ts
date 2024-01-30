@@ -9,3 +9,8 @@ export type Pokemons = {
  export type PokemonList = {
     result:Pokemons[]
 }
+
+export type initialState = {
+    data : []
+    queryName: string
+}
