@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { initialState } from '../../models/Pokemons'
+import { initialState } from './type'
 
 
 
 const initialState: initialState = {
-  data: [],
+  currentPage : 0,
   queryName : ""
 }
 
@@ -17,12 +17,15 @@ export const pokemonSlice = createSlice({
       state.queryName = action.payload
       console.log(action.payload)
     },
+
+    getCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload
+      console.log(action.payload)
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { searchQueryName } = pokemonSlice.actions
+export const { searchQueryName,getCurrentPage } = pokemonSlice.actions
 
 export default pokemonSlice.reducer
-
-'@/modules/tpv/store';

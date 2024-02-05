@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 
 function Header() {
   return (
-    <div className='bg-gray-950 h-28 flex flex-row'>
+    <div className='flex flex-row'>
         <Navbar />
     </div>
   )

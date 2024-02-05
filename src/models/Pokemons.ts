@@ -4,13 +4,14 @@ export type Pokemons = {
     sprites: {
         front_default:string
     }
+    height:number,
+    weight:number,
+    experience:number
+    img:string
+   
 }
 
  export type PokemonList = {
     result:Pokemons[]
 }
 
-export type initialState = {
-    data : []
-    queryName: string
-}
