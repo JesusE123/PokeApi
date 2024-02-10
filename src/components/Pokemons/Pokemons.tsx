@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import Pokemon from "./Pokemon";
 import UsePokemons from "./UsePokemons";
 import Pagination from "../Pagination/Pagination";
+import Loading from "../Loading/Loading";
 
 const Pokemons = () => {
-  const { result, getPokemons, pagination } = UsePokemons();
+const { result, getPokemons, isLoading, pagination } = UsePokemons();
+   
 
   useEffect(() => {
     getPokemons();
@@ -13,11 +15,15 @@ const Pokemons = () => {
   const handlePageChange = async (page: number) => {
     // Llama a la función getPokemons con el número de página deseado
     await getPokemons(page);
-    
-  };
+  }    
+
+  if(isLoading) return <Loading />
+  
+  if (result.length === 0) return <p className="text-white text-center font-semibold mt-3">No hemos encontrado a tu pokemon en esta pagina, quizas este en otra...</p>
   return (
     <>
-      <div className="grid grid-cols-5 grid-rows-4 gap-2">
+    
+      <div className="grid grid-cols-5">
         {result.map((pokemon, index) => {
           return (
             <Pokemon
@@ -30,10 +36,11 @@ const Pokemons = () => {
             />
           );
         })}
+        
       </div>
-      <div className="flex justify-center">
-        <Pagination handlePageChange={handlePageChange} pagination={pagination}/>
-      </div>
+      
+    <Pagination handlePageChange={handlePageChange} pagination={pagination}/>
+     
     </>
   );
 };

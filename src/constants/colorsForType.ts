@@ -1,24 +1,10 @@
-export type pokeTypes =  {
-    fire: string,
-    grass: string,
-    electric: string,
-    water: string,
-    ground: string,
-    rock: string,
-    fairy: string,
-    poison: string,
-    bug: string,
-    dragon: string,
-    psychic: string,
-    flying: string,
-    fighting: string,
-    normal: string,
-    ghost: string,
-    steel: string,
-    ice: string,
-    dark: string,
+
+interface PokeTypes {
+    [key: string]: string;
 }
-export const colorsForType:pokeTypes  = {
+
+
+export const colorsForType: PokeTypes = {
     fire: "#f08030",
     grass: "#78c850",
     electric: "#f8d030",
@@ -37,5 +23,4 @@ export const colorsForType:pokeTypes  = {
     steel: "#b8b8d0",
     ice: "#98d8d8",
     dark: "#705848",
-} 
-
+};

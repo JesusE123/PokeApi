@@ -5,7 +5,7 @@ import { initialState } from './type'
 
 
 const initialState: initialState = {
-  currentPage : 0,
+  selectType : "",
   queryName : ""
 }
 
@@ -18,14 +18,14 @@ export const pokemonSlice = createSlice({
       console.log(action.payload)
     },
 
-    getCurrentPage: (state, action: PayloadAction<number>) => {
-      state.currentPage = action.payload
+     selectedType: (state, action: PayloadAction<string>) => {
+      state.selectType = action.payload;
       console.log(action.payload)
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { searchQueryName,getCurrentPage } = pokemonSlice.actions
+export const { searchQueryName,selectedType } = pokemonSlice.actions
 
 export default pokemonSlice.reducer

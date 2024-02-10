@@ -1,6 +1,6 @@
-import { Pokemons } from "../../models/Pokemons"
+import { PokemonProps } from "./Pokemon.interface"
 
-const Pokemon = ({name,img,height,weight,experience}:Pokemons) => {
+const Pokemon = ({name,img,height,weight,experience}:PokemonProps) => {
  
   return (
     <div className="py-3 mt-2">

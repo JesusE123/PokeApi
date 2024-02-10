@@ -8,7 +8,10 @@ const useSearchPokemon = () => {
 
  const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const value = (e.target as HTMLInputElement).value
-  dispatch(searchQueryName(value))
+  setTimeout(() => {
+    dispatch(searchQueryName(value))
+  }, 1000);
+  
  }
 
  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
