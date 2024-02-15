@@ -1,6 +1,13 @@
+import ModalPokemon from "../ModalPokemon/ModalPokemon"
 import { PokemonProps } from "./Pokemon.interface"
+import { useState } from "react"
 
 const Pokemon = ({name,img,height,weight,experience}:PokemonProps) => {
+const [isOpen, setIsOpen] = useState<boolean>(false)
+
+const handleClick = () => {
+   setIsOpen(true)
+}
  
   return (
     <div className="py-3 mt-2">
@@ -14,12 +21,14 @@ const Pokemon = ({name,img,height,weight,experience}:PokemonProps) => {
             <p className="font-semibold text-white">Height : {height}</p>
             <p className="font-semibold text-white">Weight : {weight}</p>
             <p className="font-semibold text-white">Experience : {experience}</p>
-        <button className=" mt-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <button 
+        onClick={handleClick}
+        className=" mt-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Read more
         </button>
-       
     </div>
 </div>
+    <ModalPokemon isOpen={isOpen} name={name} height={height} weight={weight} experience={experience}/>
     </div>
   )
 }

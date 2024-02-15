@@ -4,9 +4,15 @@ import UsePokemons from "./UsePokemons";
 import Pagination from "../Pagination/Pagination";
 import Loading from "../Loading/Loading";
 
+
+
+
+
+
 const Pokemons = () => {
 const { result, getPokemons, isLoading, pagination } = UsePokemons();
-   
+
+
 
   useEffect(() => {
     getPokemons();
@@ -19,7 +25,7 @@ const { result, getPokemons, isLoading, pagination } = UsePokemons();
 
   if(isLoading) return <Loading />
   
-  if (result.length === 0) return <p className="text-white text-center font-semibold mt-3">No hemos encontrado a tu pokemon en esta pagina, quizas este en otra...</p>
+  if (result.length === 0) return <p className="text-white text-center font-semibold mt-3">No hemos encontrado a tu pokemon en esta pagina</p>
   return (
     <>
     
@@ -40,7 +46,7 @@ const { result, getPokemons, isLoading, pagination } = UsePokemons();
       </div>
       
     <Pagination handlePageChange={handlePageChange} pagination={pagination}/>
-     
+   
     </>
   );
 };

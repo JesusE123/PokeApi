@@ -5,7 +5,7 @@ import TypesPokemon from "./TypesPokemon";
 
 const TypesPokemons = () => {
   const { result, FetchTypesPokemon, handleType } = UseTypesPokemons();
-  console.log(result);
+
 
   useEffect(() => {
     FetchTypesPokemon();

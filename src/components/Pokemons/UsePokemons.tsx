@@ -10,8 +10,8 @@ const UsePokemons = () => {
     currentPage: number;
     totalPages: number;
   }>({ currentPage: 1, totalPages: 1 });
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
+ 
 
   const state = useSelector((state: RootState) => state.pokemon);
   const getPokemons = async (page = 1) => {
@@ -59,12 +59,14 @@ const UsePokemons = () => {
       pokemon.name.toLowerCase().includes(state.queryName.toLowerCase()) &&
       (!state.selectType || pokemon.types.includes(state.selectType))
   );
+  
 
   return {
     result: filteredPokemons ? filteredPokemons : [],
     getPokemons,
     isLoading,
     pagination,
+    
   };
 };
 
