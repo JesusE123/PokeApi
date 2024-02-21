@@ -10,16 +10,19 @@ import Loading from "../Loading/Loading";
 
 
 const Pokemons = () => {
-const { result, getPokemons, isLoading, pagination } = UsePokemons();
-
+const { result, getPokemons, isLoading, pagination, getGlobalPokemons, globalPokemons } = UsePokemons();
+console.log(globalPokemons)
 
 
   useEffect(() => {
     getPokemons();
+    getGlobalPokemons()
   }, []);
 
+  
+
   const handlePageChange = async (page: number) => {
-    // Llama a la función getPokemons con el número de página deseado
+    
     await getPokemons(page);
   }    
 
@@ -39,6 +42,7 @@ const { result, getPokemons, isLoading, pagination } = UsePokemons();
               height={pokemon.height}
               weight={pokemon.weight}
               experience={pokemon.experience}
+              abilities={pokemon.abilities}
             />
           );
         })}

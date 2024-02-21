@@ -2,34 +2,36 @@ import ModalPokemon from "../ModalPokemon/ModalPokemon"
 import { PokemonProps } from "./Pokemon.interface"
 import { useState } from "react"
 
-const Pokemon = ({name,img,height,weight,experience}:PokemonProps) => {
+const Pokemon = ({name,img,height,weight,experience,abilities}:PokemonProps) => {
 const [isOpen, setIsOpen] = useState<boolean>(false)
 
-const handleClick = () => {
-   setIsOpen(true)
-}
+
  
   return (
-    <div className="py-3 mt-2">
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div className="flex justify-center">
-        <img className="rounded-t-lg" src={img} alt="pokemons" width={"160"} />
-        </div>
-    <div className="p-5">
-       
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name.toLocaleUpperCase()}</h5>
-            <p className="font-semibold text-white">Height : {height}</p>
-            <p className="font-semibold text-white">Weight : {weight}</p>
-            <p className="font-semibold text-white">Experience : {experience}</p>
-        <button 
-        onClick={handleClick}
-        className=" mt-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Read more
-        </button>
+    <>
+    <div 
+    onClick={() => setIsOpen(true)}
+    className="hover:scale-110 cursor-pointer max-w-md mx-auto p-3 bg-gray-900 rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-5 w-96">
+  <div className="md:flex">
+    <div className="md:flex-shrink-0 h-40">
+      <img className="h-30 w-40 object-cover" src={img} alt="Pokemon" />
     </div>
+    <div className="p-8">
+      <div className="uppercase tracking-wide  text-indigo-500 font-semibold">{name}</div>
+      <p className="mt-2 text-gray-500">experience: {experience}</p>
+      <p className="mt-2 text-gray-500"> weight: {weight}</p>
+      <p className="mt-2 text-gray-500"> height: {height}</p>
+    </div>
+  </div>
+  
+   
+  
 </div>
-    <ModalPokemon isOpen={isOpen} name={name} height={height} weight={weight} experience={experience}/>
-    </div>
+  <ModalPokemon isOpen={isOpen} name={name} abilities={abilities} img={img} setIsOpen={setIsOpen}/>
+    
+
+  </>
+    
   )
 }
 

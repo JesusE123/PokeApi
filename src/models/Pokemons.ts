@@ -9,12 +9,18 @@ export type PokemonResponse = {
     base_experience: number;
     weight: number;
     types: { type: PokemonType }[];
+    abilities: { ability: abilities }[];
+    
   };
 
   export type PokemonType = {
     name: string;
     url: string;
   };
+
+  export type abilities = {
+    ability:string
+  }
 
   export type Pokemon = {
     url:string
@@ -25,7 +31,8 @@ export type PokemonResponse = {
     weight: number;
     sprites: {
       front_default: string;
-    
+     
     };
+    abilities:[]
   }
   

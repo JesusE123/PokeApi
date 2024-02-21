@@ -4,4 +4,5 @@ export interface PokemonProps {
     height:number,
     weight:number
     experience:number
+    abilities:[]
 }

@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
 import { Pokemon, PokemonResponse } from "../../models/Pokemons";
 
 const UsePokemons = () => {
   const [data, setData] = useState<Pokemon[]>();
+  const [globalPokemons, setGlobalPokemons] = useState<Pokemon[]>([]);
   const [pagination, setPagination] = useState<{
     currentPage: number;
     totalPages: number;
@@ -31,12 +32,14 @@ const UsePokemons = () => {
           id: pokemonResponse.data.id,
           name: pokemonResponse.data.name,
           sprites: {
-            front_default: pokemonResponse.data.sprites.front_default,
+            front_default: pokemonResponse.data.sprites.other.dream_world.front_default,
           },
+          
           height: pokemonResponse.data.height,
           experience: pokemonResponse.data.base_experience,
           weight: pokemonResponse.data.weight,
           types: pokemonResponse.data.types.map((type) => type.type.name),
+          abilities: pokemonResponse.data.abilities.map((ability) => ability.ability.name)
         };
 
         return pokemonData;
@@ -53,19 +56,40 @@ const UsePokemons = () => {
       console.error("Error fetching data:", error);
     }
   };
+  
+  const getGlobalPokemons = async () => {
+		const baseURL = 'https://pokeapi.co/api/v2/';
+
+		const res = await axios.get(
+			`${baseURL}pokemon?limit=1000&offset=0`
+		);
+    const promises = res.data.results.map((pokemon) => {
+      return pokemon;
+    });
+    
+    const results = await Promise.all(promises);
+    setGlobalPokemons(results);
+	
+  
+  
+	};
 
   const filteredPokemons = data?.filter(
     (pokemon: Pokemon) =>
       pokemon.name.toLowerCase().includes(state.queryName.toLowerCase()) &&
       (!state.selectType || pokemon.types.includes(state.selectType))
   );
+
+ 
   
 
   return {
-    result: filteredPokemons ? filteredPokemons : [],
+    result: data ? data : [],
     getPokemons,
     isLoading,
     pagination,
+    getGlobalPokemons,
+    globalPokemons
     
   };
 };

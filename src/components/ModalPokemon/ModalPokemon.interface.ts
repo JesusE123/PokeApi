@@ -1,7 +1,11 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface modalPokemonProps {
     name:string,
-    weight:number,
-    height:number,
+   
     isOpen:boolean
-    experience:number
+  
+    abilities:[]
+    img:string
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
 }

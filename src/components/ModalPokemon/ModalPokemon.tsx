@@ -19,8 +19,9 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export default function ModalPokemon({ 
-  isOpen, name, height, weight, experience 
+  isOpen, name, abilities ,img, setIsOpen
 }:modalPokemonProps) {
+  
   return (
     <React.Fragment>
       <Dialog
@@ -30,9 +31,24 @@ export default function ModalPokemon({
         aria-describedby="alert-dialog-slide-description"
       >
         <div className="bg-black text-white p-5">
-          <DialogTitle>Information of pokemon</DialogTitle>
-          <DialogContent>{name}- {height} - {weight}- {experience}</DialogContent>
-          <DialogActions></DialogActions>
+          <DialogTitle sx={{fontSize: 40}}>Information of pokemon</DialogTitle>
+          <DialogTitle sx={{fontSize:35, textTransform:"uppercase"}} className="text-center">{name}</DialogTitle>
+          <DialogContent className="flex justify-center">
+            <img src={img} alt="pokemon" width={200}  />
+          </DialogContent>
+          <div className="flex">
+          <DialogContent sx={{fontSize:40}}>Movements : </DialogContent>
+          <DialogContent sx={{fontSize:25}}>
+            <ul>
+            {abilities.map((ability, index) => (
+              <li key={index} className="flex justify-center"> - {ability}</li>
+            ))}
+            </ul>
+          </DialogContent>
+          </div>
+          <DialogActions>
+           <button onClick={() => setIsOpen(false)}>Close</button>
+          </DialogActions>
         </div>
       </Dialog>
     </React.Fragment>

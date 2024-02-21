@@ -7,5 +7,8 @@ html, body {
   width: 100%;
   margin: 0; /* Eliminar márgenes para evitar desbordamientos */
   padding: 0; /* Eliminar rellenos para evitar desbordamientos */
-  background-image: linear-gradient(to bottom, #051937, #001a2a, #001718, #001107, #050701);
+  background: rgb(2,0,36);
+background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 36%, rgba(0,212,255,1) 100%);
 }
+
+
