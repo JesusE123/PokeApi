@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
 import { Pokemon, PokemonResponse } from "../../models/Pokemons";
@@ -57,24 +57,50 @@ const UsePokemons = () => {
     }
   };
   
+  
   const getGlobalPokemons = async () => {
-		const baseURL = 'https://pokeapi.co/api/v2/';
+    try {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0`
+      );
+      const results = response.data.results;
+      
 
-		const res = await axios.get(
-			`${baseURL}pokemon?limit=1000&offset=0`
-		);
-    const promises = res.data.results.map((pokemon) => {
-      return pokemon;
-    });
-    
-    const results = await Promise.all(promises);
-    setGlobalPokemons(results);
-	
-  
-  
-	};
+      // Map over the results list and make calls to the URLs
+      const pokemonDataPromises = results.map(async (pokemon: Pokemon) => {
+        const pokemonResponse = await axios.get<PokemonResponse>(pokemon.url);
+        const pokemonData = {
+          id: pokemonResponse.data.id,
+          name: pokemonResponse.data.name,
+          sprites: {
+            front_default: pokemonResponse.data.sprites.other.dream_world.front_default,
+          },
+          
+          height: pokemonResponse.data.height,
+          experience: pokemonResponse.data.base_experience,
+          weight: pokemonResponse.data.weight,
+          types: pokemonResponse.data.types.map((type) => type.type.name),
+          abilities: pokemonResponse.data.abilities.map((ability) => ability.ability.name)
+        };
 
-  const filteredPokemons = data?.filter(
+        return pokemonData;
+      });
+
+      // Wait for all calls to complete before updating status
+      const pokemonData = await Promise.all(pokemonDataPromises);
+
+      // Update status with Pokémon data
+      setGlobalPokemons(pokemonData.slice(0.20));
+      
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+ 
+
+
+  const filteredPokemons = globalPokemons?.filter(
     (pokemon: Pokemon) =>
       pokemon.name.toLowerCase().includes(state.queryName.toLowerCase()) &&
       (!state.selectType || pokemon.types.includes(state.selectType))
@@ -89,8 +115,8 @@ const UsePokemons = () => {
     isLoading,
     pagination,
     getGlobalPokemons,
-    globalPokemons
-    
+    globalPokemons,
+    filteredPokemons
   };
 };
 

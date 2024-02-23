@@ -10,8 +10,18 @@ import Loading from "../Loading/Loading";
 
 
 const Pokemons = () => {
-const { result, getPokemons, isLoading, pagination, getGlobalPokemons, globalPokemons } = UsePokemons();
-console.log(globalPokemons)
+const { 
+  result, 
+  getPokemons, 
+  isLoading, 
+  pagination, 
+  getGlobalPokemons, 
+  globalPokemons ,
+  filteredPokemons
+} = UsePokemons();
+
+
+  console.log(filteredPokemons)
 
 
   useEffect(() => {
@@ -28,30 +38,49 @@ console.log(globalPokemons)
 
   if(isLoading) return <Loading />
   
-  if (result.length === 0) return <p className="text-white text-center font-semibold mt-3">No hemos encontrado a tu pokemon en esta pagina</p>
+  if (result.length === 0) return <p className="text-white text-center font-semibold mt-3">No hemos encontrado a tu pokemon</p>
   return (
     <>
-    
-      <div className="grid grid-cols-5">
-        {result.map((pokemon, index) => {
-          return (
-            <Pokemon
+    {isLoading ? (
+      <Loading />
+    ) : (
+      <div className='grid grid-cols-5'>
+        {filteredPokemons.length < 1000 ? (
+          <>
+            {filteredPokemons.map(pokemon => (
+              <Pokemon
               name={pokemon.name}
-              key={index}
+          
               img={pokemon.sprites.front_default}
               height={pokemon.height}
               weight={pokemon.weight}
               experience={pokemon.experience}
               abilities={pokemon.abilities}
             />
-          );
-        })}
-        
+            ))}
+          </>
+        ) : (
+          <>
+            {result.map(pokemon => (
+              <Pokemon
+              name={pokemon.name}
+            
+              img={pokemon.sprites.front_default}
+              height={pokemon.height}
+              weight={pokemon.weight}
+              experience={pokemon.experience}
+              abilities={pokemon.abilities}
+            />
+            ))}
+          </>
+        )}
       </div>
       
+    )}
     <Pagination handlePageChange={handlePageChange} pagination={pagination}/>
    
-    </>
+
+  </>
   );
 };
 
