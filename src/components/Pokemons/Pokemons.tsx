@@ -44,7 +44,7 @@ const {
     {isLoading ? (
       <Loading />
     ) : (
-      <div className='grid grid-cols-5'>
+      <div className='grid grid-cols-5 gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2'>
         {filteredPokemons.length < 1000 ? (
           <>
             {filteredPokemons.map(pokemon => (
