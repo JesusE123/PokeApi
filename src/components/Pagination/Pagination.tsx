@@ -1,8 +1,10 @@
+import { paginationProps } from "./Pagination.interface"
 
-const Pagination = ({handlePageChange,pagination}) => {
+
+const Pagination = ({handlePageChange,pagination}:paginationProps) => {
   
   return (
-    <div className='flex justify-center py-3'>
+    <div className='flex justify-center py-3 mt-3'>
   <ul className="flex items-center text-base">
     <li>
       <button 

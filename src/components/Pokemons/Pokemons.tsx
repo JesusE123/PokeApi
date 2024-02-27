@@ -16,12 +16,12 @@ const {
   isLoading, 
   pagination, 
   getGlobalPokemons, 
-  globalPokemons ,
+  
   filteredPokemons
 } = UsePokemons();
 
 
-  console.log(filteredPokemons)
+ 
 
 
   useEffect(() => {

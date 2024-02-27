@@ -1,14 +1,17 @@
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html, body {
+  font-family: 'Montserrat Variable', sans-serif;
   height: 100%; /* 100% de la altura de la ventana del navegador */
   width: 100%;
   margin: 0; /* Eliminar márgenes para evitar desbordamientos */
   padding: 0; /* Eliminar rellenos para evitar desbordamientos */
   background: rgb(2,0,36);
-background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 36%, rgba(0,212,255,1) 100%);
+  background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 36%, rgba(0,212,255,1) 100%);
 }
 
 
