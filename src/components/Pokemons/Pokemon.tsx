@@ -4,7 +4,7 @@ import { useState } from "react"
 
 const Pokemon = ({name,img,height,weight,experience,abilities}:PokemonProps) => {
 const [isOpen, setIsOpen] = useState<boolean>(false)
-
+console.log(name)
 
  
   return (

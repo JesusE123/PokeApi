@@ -21,12 +21,12 @@ const {
 } = UsePokemons();
 
 
- 
+ console.log(result)
 
 
   useEffect(() => {
     getPokemons();
-    getGlobalPokemons()
+    //getGlobalPokemons()
   }, []);
 
   
@@ -51,7 +51,7 @@ const {
               <Pokemon
               name={pokemon.name}
           
-              img={pokemon.sprites.front_default}
+              img={pokemon.sprites.other.dream_world.front_default}
               height={pokemon.height}
               weight={pokemon.weight}
               experience={pokemon.experience}
@@ -64,12 +64,12 @@ const {
             {result.map(pokemon => (
               <Pokemon
               name={pokemon.name}
-            
-              img={pokemon.sprites.front_default}
+              abilities={pokemon.abilities}
+              img={pokemon.sprites.other.dream_world.front_default}
               height={pokemon.height}
               weight={pokemon.weight}
               experience={pokemon.experience}
-              abilities={pokemon.abilities}
+              
             />
             ))}
           </>

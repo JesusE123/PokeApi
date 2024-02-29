@@ -2,11 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
-import { Pokemon, PokemonResponse } from "../../models/Pokemons";
+import {  PokemonResponse } from "../../models/Pokemons";
 
 const UsePokemons = () => {
-  const [data, setData] = useState<Pokemon[]>();
-  const [globalPokemons, setGlobalPokemons] = useState<Pokemon[]>([]);
+  const [data, setData] = useState<PokemonResponse[]>();
+  const [globalPokemons, setGlobalPokemons] = useState<PokemonResponse[]>([]);
   const [pagination, setPagination] = useState<{
     currentPage: number;
     totalPages: number;
@@ -22,40 +22,24 @@ const UsePokemons = () => {
       const response = await axios.get(
         `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
       );
-      const results = response.data.results;
+      const data = response.data.results;
       const pages = Math.ceil(response.data.count / limit);
+      const promises = data.map(async (pokemon:PokemonResponse) => {
+        const res = await fetch(pokemon.url)
+        const data = await res.json()
+        return data
+      })
 
-      // Map over the results list and make calls to the URLs
-      const pokemonDataPromises = results.map(async (pokemon: Pokemon) => {
-        const pokemonResponse = await axios.get<PokemonResponse>(pokemon.url);
-        const pokemonData = {
-          id: pokemonResponse.data.id,
-          name: pokemonResponse.data.name,
-          sprites: {
-            front_default: pokemonResponse.data.sprites.other.dream_world.front_default,
-          },
-          
-          height: pokemonResponse.data.height,
-          experience: pokemonResponse.data.base_experience,
-          weight: pokemonResponse.data.weight,
-          types: pokemonResponse.data.types.map((type) => type.type.name),
-          abilities: pokemonResponse.data.abilities.map((ability) => ability.ability.name)
-        };
-
-        return pokemonData;
-      });
-
-      // Wait for all calls to complete before updating status
-      const pokemonData = await Promise.all(pokemonDataPromises);
-
-      // Update status with Pokémon data
-      setData(pokemonData);
+      const results =  await Promise.all(promises)
+      setData(results)
       setPagination({ currentPage: page, totalPages: pages });
       setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  }
+  catch {
+    console.log("s")
+  }
+}
+
   
   
   const getGlobalPokemons = async () => {
@@ -67,20 +51,20 @@ const UsePokemons = () => {
       
 
       // Map over the results list and make calls to the URLs
-      const pokemonDataPromises = results.map(async (pokemon: Pokemon) => {
+      const pokemonDataPromises = results.map(async (pokemon: PokemonResponse) => {
         const pokemonResponse = await axios.get<PokemonResponse>(pokemon.url);
         const pokemonData = {
           id: pokemonResponse.data.id,
           name: pokemonResponse.data.name,
           sprites: {
-            front_default: pokemonResponse.data.sprites.other.dream_world.front_default,
+            front: pokemonResponse.data.sprites.other.dream_world.front_default,
           },
           
           height: pokemonResponse.data.height,
-          experience: pokemonResponse.data.base_experience,
+          experience: pokemonResponse.data.experience,
           weight: pokemonResponse.data.weight,
-          types: pokemonResponse.data.types.map((type) => type.type.name),
-          abilities: pokemonResponse.data.abilities.map((ability) => ability.ability.name)
+          types: pokemonResponse.data.types.map((type) => type.type.type.name),
+          abilities: pokemonResponse.data.abilities.map((ability) => ability.ability.ability.name)
         };
 
         return pokemonData;
@@ -101,7 +85,7 @@ const UsePokemons = () => {
 
 
   const filteredPokemons = globalPokemons?.filter(
-    (pokemon: Pokemon) =>
+    (pokemon:PokemonResponse) =>
       pokemon.name.toLowerCase().includes(state.queryName.toLowerCase()) &&
       (!state.selectType || pokemon.types.includes(state.selectType))
   );
