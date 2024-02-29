@@ -5,7 +5,7 @@ export interface modalPokemonProps {
    
     isOpen:boolean
   
-    abilities:[]
+   
     img:string
     setIsOpen: Dispatch<SetStateAction<boolean>>;
 }

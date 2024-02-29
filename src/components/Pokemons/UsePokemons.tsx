@@ -36,60 +36,39 @@ const UsePokemons = () => {
       setIsLoading(false);
   }
   catch {
-    console.log("s")
+    console.log("Error")
   }
 }
 
   
   
-  const getGlobalPokemons = async () => {
-    try {
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0`
-      );
-      const results = response.data.results;
-      
+const getGlobalPokemons = async () => {
+  try {
+    
+    
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0`
+    );
+    const data = response.data.results;
+    
+    const promises = data.map(async (pokemon:PokemonResponse) => {
+      const res = await fetch(pokemon.url)
+      const data = await res.json()
+      return data
+    })
 
-      // Map over the results list and make calls to the URLs
-      const pokemonDataPromises = results.map(async (pokemon: PokemonResponse) => {
-        const pokemonResponse = await axios.get<PokemonResponse>(pokemon.url);
-        const pokemonData = {
-          id: pokemonResponse.data.id,
-          name: pokemonResponse.data.name,
-          sprites: {
-            front: pokemonResponse.data.sprites.other.dream_world.front_default,
-          },
-          
-          height: pokemonResponse.data.height,
-          experience: pokemonResponse.data.experience,
-          weight: pokemonResponse.data.weight,
-          types: pokemonResponse.data.types.map((type) => type.type.type.name),
-          abilities: pokemonResponse.data.abilities.map((ability) => ability.ability.ability.name)
-        };
-
-        return pokemonData;
-      });
-
-      // Wait for all calls to complete before updating status
-      const pokemonData = await Promise.all(pokemonDataPromises);
-
-      // Update status with Pokémon data
-      setGlobalPokemons(pokemonData.slice(0.20));
-      
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
- 
+    const results =  await Promise.all(promises)
+    setGlobalPokemons(results)
+    
+    setIsLoading(false);
+}
+catch {
+  console.log("Error")
+}
+}  
 
 
-  const filteredPokemons = globalPokemons?.filter(
-    (pokemon:PokemonResponse) =>
-      pokemon.name.toLowerCase().includes(state.queryName.toLowerCase()) &&
-      (!state.selectType || pokemon.types.includes(state.selectType))
-  );
-
+  
  
   
 
@@ -100,7 +79,7 @@ const UsePokemons = () => {
     pagination,
     getGlobalPokemons,
     globalPokemons,
-    filteredPokemons
+    
   };
 };
 

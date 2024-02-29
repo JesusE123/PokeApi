@@ -19,7 +19,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export default function ModalPokemon({ 
-  isOpen, name, abilities ,img, setIsOpen
+  isOpen, name ,img, setIsOpen
 }:modalPokemonProps) {
   
   return (
@@ -39,11 +39,7 @@ export default function ModalPokemon({
           <div className="flex">
           <DialogContent sx={{fontSize:40}}>Movements : </DialogContent>
           <DialogContent sx={{fontSize:25}}>
-            <ul>
-            {abilities.map((ability, index) => (
-              <li key={index} className="flex justify-center"> - {ability}</li>
-            ))}
-            </ul>
+           
           </DialogContent>
           </div>
           <DialogActions>
