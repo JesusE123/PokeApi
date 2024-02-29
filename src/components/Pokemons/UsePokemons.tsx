@@ -67,9 +67,10 @@ catch {
 }
 }  
 
-
-  
- 
+const filterPokemons = globalPokemons.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(state.queryName.toLowerCase()) &&
+    pokemon.types.some(typeObj => typeObj.type.name === state.selectType)
+);
   
 
   return {
@@ -78,7 +79,7 @@ catch {
     isLoading,
     pagination,
     getGlobalPokemons,
-    globalPokemons,
+    filterPokemons
     
   };
 };

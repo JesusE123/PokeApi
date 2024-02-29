@@ -3,9 +3,9 @@ export interface PokemonResponse {
   name: string;
   sprites: Sprites;
   height: number;
-  experience: number;
+  base_experience: number;
   weight: number;
-  types: []
+  types: PokemonType[]
   abilities: []
   
   other:Sprites
