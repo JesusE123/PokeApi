@@ -43,7 +43,7 @@ export default function ModalPokemon({
           </DialogContent>
           </div>
           <DialogActions>
-           <button onClick={() => setIsOpen(false)}>Close</button>
+           <button onClick={() => setIsOpen(!isOpen)} type="submit">Close</button>
           </DialogActions>
         </div>
       </Dialog>

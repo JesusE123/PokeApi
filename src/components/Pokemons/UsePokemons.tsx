@@ -45,9 +45,8 @@ const UsePokemons = () => {
 const getGlobalPokemons = async () => {
   try {
     
-    
     const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0`
+      `https://pokeapi.co/api/v2/pokemon?limit=500&offset=0`
     );
     const data = response.data.results;
     
@@ -67,10 +66,9 @@ catch {
 }
 }  
 
-const filterPokemons = globalPokemons.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(state.queryName.toLowerCase()) &&
-    pokemon.types.some(typeObj => typeObj.type.name === state.selectType)
-);
+const filterPokemons = globalPokemons.filter((pokemon) => (
+  pokemon.name.toLowerCase().includes(state.queryName.toLocaleLowerCase())
+))
   
 
   return {
