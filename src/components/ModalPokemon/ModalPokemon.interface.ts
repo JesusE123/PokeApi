@@ -1,11 +1,13 @@
 import { Dispatch, SetStateAction } from 'react';
+import { PokemonAbility } from '@/models/Pokemons';
 
 export interface modalPokemonProps {
     name:string,
    
-    isOpen:boolean
+    value:boolean
   
-   
+    abilities:PokemonAbility[]
     img:string
-    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    toggle: Dispatch<SetStateAction<boolean>>;
 }
+

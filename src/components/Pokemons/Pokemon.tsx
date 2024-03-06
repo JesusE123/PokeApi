@@ -1,16 +1,17 @@
 import ModalPokemon from "../ModalPokemon/ModalPokemon"
 import { PokemonProps } from "./Pokemon.interface"
-import { useState } from "react"
 
-const Pokemon = ({name,img,height,weight,experience}:PokemonProps) => {
-const [isOpen, setIsOpen] = useState<boolean>(false)
+import { useToggle } from 'usehooks-ts'
 
-console.log(isOpen)
- 
+
+const Pokemon = ({name,img,height,weight,experience, abilities}:PokemonProps) => {
+  const [value, toggle] = useToggle()
+
+  
   return (
     <>
    <div 
-    onClick={() => setIsOpen(true)}
+    onClick={toggle}
     className="hover:scale-110 transition inline-block cursor-pointer max-w-md mx-auto p-3 bg-gray-900 rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-5 w-96">
   <div className="md:flex">
     <div className="md:flex-shrink-0 h-40">
@@ -23,7 +24,7 @@ console.log(isOpen)
       <p className="mt-2 text-gray-500"> height: {height}</p>
     </div>
   </div>
-  <ModalPokemon isOpen={isOpen} name={name} img={img} setIsOpen={setIsOpen}/>
+  <ModalPokemon value={value} name={name} img={img} toggle={toggle} abilities={abilities}/>
    
   
 </div>

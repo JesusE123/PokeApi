@@ -67,7 +67,8 @@ catch {
 }  
 
 const filterPokemons = globalPokemons.filter((pokemon) => (
-  pokemon.name.toLowerCase().includes(state.queryName.toLocaleLowerCase())
+  pokemon.name.toLowerCase().includes(state.queryName.toLocaleLowerCase()) 
+ 
 ))
   
 
