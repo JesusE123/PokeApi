@@ -8,6 +8,7 @@ export const getAllPokemons = async (req: PokemonRequest = { limit: 20, offset: 
   const url = `${baseUrl}/pokemon?limit=${req.limit}&offset=${req.offset}`;
 
   const response = await axios.get(url, { signal: req.signal });
+  
   return response.data;
 };
 
@@ -16,15 +17,31 @@ export const getPokemonDetail = async (req: PokemonDetailRequest) => {
   return response.data;
 };
 
-export const getPokemonByName = async (req: { signal?: AbortSignal, query: string }) => {
+export const getPokemonByName = async (req: { signal?: AbortSignal, query?: string, type?:string }) => {
   const urlQuery = `${baseUrl}/pokemon/${req.query}/`;
   const response = await axios.get(urlQuery, { signal: req.signal });
   return response.data;
 };
 
+export const getPokemonByType = async(req : {signal?: AbortSignal, type:string}) => {
+  const urlQuery = `${baseUrl}/type/${req.type}`;
+  const response = await axios.get(urlQuery, { signal: req.signal });
+  return response.data
+ 
+   
+}
+
+
+
 export const getAllDataPokemons = async (req: PokemonRequest = { limit: 20, offset: 0 }) => {
   if (req.query) {
     const result = await getPokemonByName({ query: req.query, signal: req.signal});
+    return { count: 1, data: [result]};
+  }
+
+  if(req.type) {
+    const result = await getPokemonByType({ type: req.type, signal: req.signal});
+   
     return { count: 1, data: [result]};
   }
 

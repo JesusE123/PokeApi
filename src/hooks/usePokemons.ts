@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { getAllDataPokemons } from "@/api";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import { setLoading, setData, setPages } from "@/store/Pokemons";
 import type { RootState } from "@/store";
@@ -18,6 +18,7 @@ export const usePokemons = () => {
         offset: state.offset,
         signal: abort.signal,
         query: state.queryName,
+        type:state.selectType
       });
       dispatch(setLoading(false));
       dispatch(setData(result.data));
@@ -29,5 +30,5 @@ export const usePokemons = () => {
     return () => {
       abort.abort();
     };
-  }, [state.limit, state.offset, state.queryName, dispatch]);
+  }, [state.limit, state.offset, state.queryName,state.selectType, dispatch]);
 };

@@ -3,6 +3,7 @@ export type PokemonRequest = {
   offset: number;
   query?: string;
   signal?: AbortSignal;
+  type?:string
 }
 
 

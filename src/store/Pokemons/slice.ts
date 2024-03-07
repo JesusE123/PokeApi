@@ -41,7 +41,7 @@ export const pokemonSlice = createSlice({
     },
      selectedType: (state, action: PayloadAction<string>) => {
       state.selectType = action.payload;
-      console.log(action.payload)
+    
     },    
   },
 })
