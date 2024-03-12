@@ -18,7 +18,6 @@ export const usePokemons = () => {
         offset: state.offset,
         signal: abort.signal,
         query: state.queryName,
-        type:state.selectType
       });
       dispatch(setLoading(false));
       dispatch(setData(result.data));
@@ -30,5 +29,5 @@ export const usePokemons = () => {
     return () => {
       abort.abort();
     };
-  }, [state.limit, state.offset, state.queryName,state.selectType, dispatch]);
+  }, [state.limit, state.offset, state.queryName, dispatch]);
 };
