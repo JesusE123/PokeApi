@@ -1,4 +1,4 @@
-export interface PokemonResponse {
+export type PokemonResponse = {
   id: number;
   name: string;
   sprites: Sprites;
@@ -11,7 +11,7 @@ export interface PokemonResponse {
   other:Sprites
   url:string
 }
-interface Sprites {  
+export type Sprites =  {  
   other: {
     dream_world : {
       front_default : string
@@ -19,19 +19,19 @@ interface Sprites {
   }
 }
 
-export interface PokemonType {
+export type PokemonType =  {
   type: {
     name: string;
   };
 }
 
-export interface PokemonAbility {
+export type PokemonAbility =  {
   ability: {
     name: string;
   };
 }
 
-export interface urlResponse {
+export type urlResponse = {
   name: string;
   url: string;
 }

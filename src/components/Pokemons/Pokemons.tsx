@@ -2,6 +2,7 @@ import Pokemon from "./Pokemon";
 import UsePokemons from "./UsePokemons";
 import Pagination from "../Pagination/Pagination";
 import Loading from "../Loading/Loading";
+import { PokemonResponse } from "@/models/Pokemons";
 
 const Pokemons = () => {
   const { result, isLoading, pagination, handlePageChange } = UsePokemons();
@@ -14,7 +15,7 @@ const Pokemons = () => {
     <>
       <div className="grid grid-cols-5 gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
         <>
-          {result.map((pokemon, index) => (
+          {result.map((pokemon:PokemonResponse, index:number) => (
             <Pokemon
               name={pokemon.name}
               key={index}

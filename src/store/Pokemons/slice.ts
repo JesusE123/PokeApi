@@ -4,7 +4,6 @@ import { initialState } from './type';
 import { PokemonResponse } from '@/models/Pokemons';
 
 const initialState: initialState = {
-  selectType : "",
   queryName : "",
   showModal : false,
   limit: 20,
@@ -39,14 +38,11 @@ export const pokemonSlice = createSlice({
     searchQueryName: (state, action: PayloadAction<string>) => {
       state.queryName = action.payload
     },
-     selectedType: (state, action: PayloadAction<string>) => {
-      state.selectType = action.payload;
     
-    },    
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { searchQueryName, selectedType, setData, setLoading, setPagination, setPages, setCurrentPage } = pokemonSlice.actions
+export const { searchQueryName , setData, setLoading, setPagination, setPages, setCurrentPage } = pokemonSlice.actions
 
 export default pokemonSlice.reducer

@@ -23,14 +23,6 @@ export const getPokemonByName = async (req: { signal?: AbortSignal, query?: stri
   return response.data;
 };
 
-export const getPokemonByType = async(req : {signal?: AbortSignal, type:string}) => {
-  const urlQuery = `${baseUrl}/type/${req.type}`;
-  const response = await axios.get(urlQuery, { signal: req.signal });
-  return response.data
- 
-   
-}
-
 
 
 export const getAllDataPokemons = async (req: PokemonRequest = { limit: 20, offset: 0 }) => {
@@ -39,11 +31,7 @@ export const getAllDataPokemons = async (req: PokemonRequest = { limit: 20, offs
     return { count: 1, data: [result]};
   }
 
-  if(req.type) {
-    const result = await getPokemonByType({ type: req.type, signal: req.signal});
-   
-    return { count: 1, data: [result]};
-  }
+  
 
   const result = await getAllPokemons(req);
   const promises = result.results.map((element: PokemonResponse) => {
