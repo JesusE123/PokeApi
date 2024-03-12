@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <>
       <nav className="flex items-center p-5 w-full justify-between">
-        <img src="/src/assets/logo.png" alt="logo" width={"200"} />
+        <img src="/public/logo.png" alt="logo" width={"200"} />
         <div className="flex justify-end space-x-3 px-5">
           <span className="text-white font-bold">Development by  </span>
           <a href="https://github.com/JesusE123" target="_blank">
